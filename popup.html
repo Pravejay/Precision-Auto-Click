@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Precision Auto-Clicker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f0c20 0%, #15102a 100%);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f1fe;
+      --text-muted: #a5a1c0;
+      --accent-color: #7b2cbf;
+      --accent-glow: rgba(123, 44, 191, 0.5);
+      --success-color: #00f5d4;
+      --success-glow: rgba(0, 245, 212, 0.4);
+    }
+
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 20px;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 14px;
+    }
+
+    .logo-container {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #ffffff, #d3c4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 13px;
+      margin: 0 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    li strong {
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(0, 245, 212, 0.1);
+      color: var(--success-color);
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .status-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-value {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--success-color);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--success-glow);
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .warning-box {
+      font-size: 11px;
+      color: #ff9f1c;
+      background: rgba(255, 159, 28, 0.08);
+      border: 1px solid rgba(255, 159, 28, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      line-height: 1.4;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">🎯</div>
+      <div>
+        <h1>Precision Auto-Clicker</h1>
+        <div class="subtitle">Millisecond-Accurate Auto-Clicker</div>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2>How to Use</h2>
+      <ol>
+        <li>Navigate to any web page.</li>
+        <li><strong>Right-click</strong> on the target element (button, link, input).</li>
+        <li>Select <strong>🎯 Target element for Auto-Click</strong>.</li>
+        <li>Configure the exact target date, time, and millisecond in the floating scheduler.</li>
+        <li>Click <strong>Start Scheduler</strong>.</li>
+      </ol>
+    </div>
+
+    <div class="card status-section">
+      <h2>Active Target Status</h2>
+      <div class="status-row">
+        <span>Precision Mode:</span>
+        <span class="status-value"><span class="pulse-dot"></span>Active (Local Time)</span>
+      </div>
+      <div class="status-row" id="active-target-info">
+        <span>No target set on active tab.</span>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      ⚠️ <strong>Browser Sleep Constraint:</strong> Chrome suspends timers when tabs are hidden or inactive. Please keep the target tab <strong>visible and focused</strong> as the scheduled time approaches to guarantee millisecond accuracy!
+    </div>
+
+    <div class="footer">
+      Version 1.0.0 • Local Time Context
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+/* Root variables scoped to our extension container to avoid page CSS polluting our panel */
+.pac-panel-container {
+  --pac-font: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pac-bg: rgba(15, 12, 32, 0.85);
+  --pac-border: rgba(255, 255, 255, 0.08);
+  --pac-card-bg: rgba(255, 255, 255, 0.03);
+  --pac-text-main: #f3f1fe;
+  --pac-text-muted: #a5a1c0;
+  --pac-accent: #7b2cbf;
+  --pac-accent-glow: rgba(123, 44, 191, 0.4);
+  --pac-success: #00f5d4;
+  --pac-success-glow: rgba(0, 245, 212, 0.3);
+  --pac-warning: #ff9f1c;
+  --pac-danger: #ff0054;
+}
+
+/* Injected panel styling */
+.pac-panel {
+  all: initial; /* Reset all styles to avoid page leaks */
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  width: 360px !important;
+  background: var(--pac-bg) !important;
+  border: 1px solid var(--pac-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  z-index: 2147483647 !important; /* Maximum possible z-index */
+  padding: 20px !important;
+  color: var(--pac-text-main) !important;
+  font-family: var(--pac-font) !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.pac-panel.pac-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.pac-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid var(--pac-border) !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 4px !important;
+}
+
+.pac-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.pac-logo {
+  font-size: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.pac-title {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: var(--pac-text-main) !important;
+  margin: 0 !important;
+}
+
+.pac-close-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--pac-text-muted) !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  line-height: 1 !important;
+  border-radius: 6px !important;
+  transition: all 0.2s !important;
+}
+
+.pac-close-btn:hover {
+  color: var(--pac-danger) !important;
+  background: rgba(255, 0, 84, 0.1) !important;
+}
+
+/* Info card */
+.pac-info-card {
+  background: var(--pac-card-bg) !important;
+  border: 1px solid var(--pac-border) !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  font-size: 12px !important;
+  color: var(--pac-text-muted) !important;
+}
+
+.pac-info-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.pac-info-value {
+  color: var(--pac-text-main) !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 220px !important;
+}
+
+/* Config forms */
+.pac-form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.pac-label {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  color: var(--pac-success) !important;
+  font-weight: 600 !important;
+}
+
+.pac-input-row {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.pac-input {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid var(--pac-border) !important;
+  border-radius: 8px !important;
+  color: var(--pac-text-main) !important;
+  padding: 8px 10px !important;
+  font-family: var(--pac-font) !important;
+  font-size: 13px !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s !important;
+}
+
+.pac-input:focus {
+  border-color: var(--pac-accent) !important;
+}
+
+.pac-input-date {
+  flex: 2 !important;
+}
+
+.pac-input-ms {
+  flex: 1 !important;
+  text-align: center !important;
+}
+
+/* Live clock and countdown */
+.pac-clock-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  padding: 8px 0 !important;
+  border-top: 1px dashed var(--pac-border) !important;
+  border-bottom: 1px dashed var(--pac-border) !important;
+}
+
+.pac-clock-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  font-size: 12px !important;
+}
+
+.pac-clock-time {
+  font-family: monospace !important;
+  font-size: 13px !important;
+  color: var(--pac-text-main) !important;
+  font-weight: 600 !important;
+}
+
+.pac-countdown {
+  font-family: monospace !important;
+  color: var(--pac-warning) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+/* Action button styling */
+.pac-button {
+  background: linear-gradient(135deg, var(--pac-accent), #56149d) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  font-family: var(--pac-font) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px var(--pac-accent-glow) !important;
+  transition: all 0.2s !important;
+  text-align: center !important;
+}
+
+.pac-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px var(--pac-accent-glow), 0 0 0 2px rgba(255, 255, 255, 0.1) inset !important;
+}
+
+.pac-button:active {
+  transform: translateY(1px) !important;
+}
+
+.pac-button-cancel {
+  background: linear-gradient(135deg, var(--pac-danger), #b0003a) !important;
+  box-shadow: 0 4px 12px rgba(255, 0, 84, 0.3) !important;
+}
+
+.pac-button-cancel:hover {
+  box-shadow: 0 6px 16px rgba(255, 0, 84, 0.5) !important;
+}
+
+/* Throttling warning callout */
+.pac-warning-callout {
+  font-size: 10px !important;
+  color: var(--pac-warning) !important;
+  background: rgba(255, 159, 28, 0.08) !important;
+  border: 1px solid rgba(255, 159, 28, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  line-height: 1.3 !important;
+}
+
+/* Target Element Highlight Outline */
+.pac-target-highlight {
+  outline: 3px dashed var(--pac-success) !important;
+  outline-offset: 4px !important;
+  animation: pac-pulse-border 1.5s infinite ease-in-out !important;
+  transition: outline 0.2s ease-in-out !important;
+}
+
+@keyframes pac-pulse-border {
+  0%, 100% { outline-color: var(--pac-success); }
+  50% { outline-color: var(--pac-accent); }
+}

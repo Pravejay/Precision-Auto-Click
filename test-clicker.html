@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Precision Auto-Clicker Test Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at top right, #150d2a 0%, #090615 100%);
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f1fe;
+      --text-muted: #8d89a5;
+      --accent: #7b2cbf;
+      --accent-glow: rgba(123, 44, 191, 0.4);
+      --neon-green: #00f5d4;
+      --neon-green-glow: rgba(0, 245, 212, 0.4);
+      --neon-pink: #ff0054;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(90deg, #ffffff, var(--text-muted), #c2adff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    p.subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin: 8px 0 0 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .clock-display {
+      font-family: monospace;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--neon-green);
+      text-shadow: 0 0 20px var(--neon-green-glow);
+      background: rgba(0, 245, 212, 0.05);
+      padding: 10px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 245, 212, 0.15);
+    }
+
+    /* Test Button to be clicked */
+    .test-btn {
+      background: linear-gradient(135deg, var(--accent), #56149d);
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 18px 48px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px var(--accent-glow);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .test-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(123, 44, 191, 0.6);
+    }
+
+    .test-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Log section */
+    .log-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .log-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .clear-btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: rgba(255, 0, 84, 0.1);
+      color: var(--neon-pink);
+      border-color: rgba(255, 0, 84, 0.2);
+    }
+
+    .log-list {
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .log-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: monospace;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .log-index {
+      color: var(--text-muted);
+    }
+
+    .log-time {
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+
+    .log-type {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .instructions {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .instructions code {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Precision Test Lab</h1>
+      <p class="subtitle">Test millisecond accuracy of your auto-clicker</p>
+    </header>
+
+    <div class="card">
+      <div class="clock-display" id="clock">00:00:00.000</div>
+
+      <button class="test-btn" id="target-button">CLICK ME</button>
+
+      <div class="instructions">
+        💡 <strong>How to test:</strong> Right-click the <code>CLICK ME</code> button, select <code>🎯 Target element for Auto-Click</code>, schedule a time (e.g. 15 seconds from now), specify a specific millisecond (e.g., <code>500</code>), click Start, and check the logs below!
+      </div>
+
+      <div class="log-section">
+        <div class="log-title">
+          <span>Click Event Log</span>
+          <button class="clear-btn" id="clear-btn">Clear Logs</button>
+        </div>
+        <ul class="log-list" id="log-list">
+          <!-- Logs will appear here -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Live clock update
+    const clockEl = document.getElementById('clock');
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const ms = String(now.getMilliseconds()).padStart(3, '0');
+      clockEl.textContent = `${h}:${m}:${s}.${ms}`;
+      requestAnimationFrame(updateClock);
+    }
+    requestAnimationFrame(updateClock);
+
+    // Event logger
+    const targetButton = document.getElementById('target-button');
+    const logList = document.getElementById('log-list');
+    const clearBtn = document.getElementById('clear-btn');
+    let logCounter = 1;
+
+    function addLog(type) {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const ms = String(now.getMilliseconds()).padStart(3, '0');
+      
+      const li = document.createElement('li');
+      li.className = 'log-item';
+      li.innerHTML = `
+        <span><span class="log-index">#${logCounter++}</span> <span class="log-type">${type}</span></span>
+        <span class="log-time">${h}:${m}:${s}.${ms}</span>
+      `;
+      logList.insertBefore(li, logList.firstChild);
+    }
+
+    targetButton.addEventListener('click', (e) => {
+      // Trigger visual feedback
+      targetButton.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        targetButton.style.transform = '';
+      }, 100);
+
+      addLog('native-click');
+    });
+
+    clearBtn.addEventListener('click', () => {
+      logList.innerHTML = '';
+      logCounter = 1;
+    });
+  </script>
+</body>
+</html>
